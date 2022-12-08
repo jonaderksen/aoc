@@ -29,13 +29,11 @@ class Day7 {
                         }
                     }
                 } else {
-
                 }
             } else {
                 if (elm[0] != "dir") {
-                    curDirs.map { dirs[it] = dirs[it]!! + elm[0].toInt() }
+                    curDirs.map { dirs[it] = dirs.getValue(it) + elm[0].toInt() }
                 }else{
-
                 }
             }
         }
@@ -48,7 +46,7 @@ class Day7 {
 
     fun part2(): Int {
         val dirs = solve()
-        val sum = dirs["/"]!!
+        val sum = dirs.getValue("/")
         val sizes = dirs.values.toMutableList()
         sizes.sort()
         return sizes.first { sum - it < 40000000 }

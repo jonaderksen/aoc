@@ -10,3 +10,5 @@
 | Day 5     | TLNGFGMFN     | FGLQJCMBD     |
 | Day 6     | 1920          | 2334          |
 | Day 7     | 1348005       | 12785886      |
+| Day 8     | 1690          | 535680        |
+| Day 9     |           |         |
