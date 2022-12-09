@@ -64,5 +64,7 @@ src/main/kotlin/local/*
 src/main/kotlin/year2021/*
 src/main/kotlin/Main.kt
 input/2021/*
+target
+target/*
 .idea/*
 
