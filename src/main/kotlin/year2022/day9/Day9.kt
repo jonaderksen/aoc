@@ -6,27 +6,14 @@ import util.words
 class Day9 {
 
     fun part1(): Int{
-        return solve( mutableListOf(Pair(0, 0), Pair(0, 0)))
+        return solve(MutableList(2){Pair(0,0)})
     }
 
     fun part2(): Int {
-        return solve(
-            mutableListOf(
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0),
-                Pair(0, 0)
-            )
-        )
+        return solve(MutableList(10){Pair(0,0)})
     }
 
-    fun solve(listOfPoints: MutableList<Pair<Int, Int>>): Int {
+    private fun solve(listOfPoints: MutableList<Pair<Int, Int>>): Int {
         val input = inputAsList(2022, 9, "input")
         val visited = mutableSetOf<Pair<Int, Int>>()
 
