@@ -1,33 +1,42 @@
 package year2022.day5
 
 import util.inputAsList
+import util.words
 
 class Day5 {
-    //var stack1 = ArrayDeque(listOf('Z', 'N'))
-    //var stack2 = ArrayDeque(listOf('M', 'C', 'D'))
-    //var stack3 = ArrayDeque(listOf('P'))
-
-    var stack1 = ArrayDeque(listOf('R', 'P', 'C', 'D', 'B', 'G'))
-    var stack2 = ArrayDeque(listOf('H', 'V', 'G'))
-    var stack3 = ArrayDeque(listOf('N', 'S', 'Q', 'D', 'J', 'P', 'M'))
-    var stack4 = ArrayDeque(listOf('P', 'S', 'L', 'G', 'D', 'C', 'N', 'M'))
-    var stack5 = ArrayDeque(listOf('J', 'B', 'N', 'C', 'P', 'F', 'L', 'S'))
-    var stack6 = ArrayDeque(listOf('Q', 'B', 'D', 'Z', 'V', 'G', 'T', 'S'))
-    var stack7 = ArrayDeque(listOf('B', 'Z', 'M', 'H', 'F', 'T', 'Q'))
-    var stack8 = ArrayDeque(listOf('C', 'M', 'D', 'B', 'F'))
-    var stack9 = ArrayDeque(listOf('F', 'C', 'Q', 'G'))
-    var stacks = listOf(stack1, stack2, stack3, stack4, stack5, stack6, stack7, stack8, stack9)
 
     fun solve(): String {
         val input = inputAsList(2022, 5, "input")
+        val containers = mutableListOf<ArrayDeque<Char>>()
+        val inputList = mutableListOf<String>()
 
         input.map { line ->
-            if (line.split(" ")[0] == "move") {
+            if (line.words()[0] == "move") {
                 val move = line.split(" ")
-                part2(move[1].toInt(), stacks[move[3].toInt()-1], stacks[move[5].toInt()-1])
+                part1(move[1].toInt(), containers[move[3].toInt() - 1], containers[move[5].toInt() - 1])
+            } else if (line.isNotEmpty()) {
+                if (line.words()[1] == "1") {
+                    getInput(line, inputList, containers)
+                } else {
+                    inputList.add(line)
+                }
             }
         }
-        return stacks.map { it.removeLast() }.joinToString("")
+        return containers.map { it.removeLast() }.joinToString("")
+    }
+
+    private fun getInput(line: String, inputList: MutableList<String>, containers: MutableList<ArrayDeque<Char>>) {
+        for (i in 0 until (((line.length + 2) / 4))) {
+            val position = 1 + (i * 4)
+            val stack = ArrayDeque<Char>()
+            for (lineIndex in (inputList.size - 1) downTo 0) {
+                val containerLine = inputList[lineIndex]
+                if (position < containerLine.length && containerLine[position] != ' ') {
+                    stack.add(containerLine[position])
+                }
+            }
+            containers.add(stack)
+        }
     }
 
     private fun part1(move: Int, fromStack: ArrayDeque<Char>, toStack: ArrayDeque<Char>) {
@@ -35,6 +44,7 @@ class Day5 {
             toStack.add(fromStack.removeLast())
         }
     }
+
     private fun part2(move: Int, fromStack: ArrayDeque<Char>, toStack: ArrayDeque<Char>) {
         val tempStack = ArrayDeque<Char>()
         for (i in 1..move) {
